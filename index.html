@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teste Oficial de Idade Mental</title>
+  <title>Teste Oficial: Linguagem do Amor & Compatibilidade Oculta</title>
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
+      --primary: #e11d48;
+      --primary-hover: #be123c;
       --bg: #0f172a;
       --card-bg: #1e293b;
       --text: #f8fafc;
       --text-muted: #94a3b8;
       --accent: #22c55e;
+      --highlight: #f43f5e;
     }
 
     * {
@@ -35,17 +36,18 @@
     .container {
       background-color: var(--card-bg);
       border-radius: 16px;
-      padding: 28px;
+      padding: 24px;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     h1, h2 {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       margin-bottom: 12px;
       text-align: center;
+      line-height: 1.3;
     }
 
     p {
@@ -88,25 +90,26 @@
     .options-grid {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 18px;
     }
 
     .option-btn {
       background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text);
-      padding: 14px 16px;
+      padding: 12px 14px;
       border-radius: 8px;
       text-align: left;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
+      line-height: 1.4;
       transition: all 0.2s ease;
     }
 
     .option-btn:hover {
-      background-color: rgba(79, 70, 229, 0.15);
-      border-color: var(--primary);
+      background-color: rgba(225, 29, 72, 0.15);
+      border-color: var(--highlight);
     }
 
     .progress-bar-container {
@@ -114,7 +117,7 @@
       height: 8px;
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       overflow: hidden;
     }
 
@@ -123,6 +126,15 @@
       width: 0%;
       background-color: var(--primary);
       transition: width 0.3s ease;
+    }
+
+    .question-counter {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .blur-content {
@@ -134,9 +146,9 @@
     }
 
     .badge-lock {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      background: rgba(225, 29, 72, 0.15);
+      color: #fb7185;
+      border: 1px solid rgba(225, 29, 72, 0.3);
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 0.8rem;
@@ -181,13 +193,19 @@
     
     <!-- Tela 1: Boas-vindas -->
     <div id="screen-welcome">
-      <h1>🧠 Teste Oficial de Idade Mental</h1>
-      <p style="margin-top: 8px;">A sua idade cronológica nem sempre reflete como o seu cérebro processa o mundo. Descubra a sua verdadeira maturidade emocional.</p>
-      <button class="btn" onclick="startQuiz()">Iniciar Teste (1 Minuto)</button>
+      <h1>❤️ Linguagem do Amor & Compatibilidade Oculta</h1>
+      <p style="margin-top: 8px;">Descubra como o seu subconsciente expressa afeto e qual o perfil relacional com o qual você tem máxima conexão e menores chances de atrito.</p>
+      <div style="background: rgba(255,255,255,0.04); border-radius: 8px; padding: 12px; margin: 16px 0; font-size: 0.85rem; color: var(--text-muted); text-align: left;">
+        📌 30 perguntas situacionais rápidas<br>
+        🎯 Mapeamento preciso entre as 5 dimensões afetivas<br>
+        🔒 Revelação do padrão de compatibilidade oculta
+      </div>
+      <button class="btn" onclick="startQuiz()">Iniciar Análise Completa</button>
     </div>
 
-    <!-- Tela 2: Perguntas -->
+    <!-- Tela 2: Quiz de 30 Questões -->
     <div id="screen-quiz" class="hidden">
+      <div class="question-counter" id="questionCounter">Pergunta 1 de 30</div>
       <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
@@ -197,106 +215,369 @@
 
     <!-- Tela 3: Carregamento do Resultado -->
     <div id="screen-loading" class="hidden">
-      <h2>A analisar os padrões específicos...</h2>
+      <h2>Mapeando seus padrões afetivos...</h2>
       <div class="progress-bar-container">
         <div class="progress-bar" id="loadingBar"></div>
       </div>
-      <p id="loadingStatus" style="margin-top: 12px;">Cruzando respostas com banco de dados neurológicos...</p>
+      <p id="loadingStatus" style="margin-top: 12px;">Cruzando respostas com o algoritmo de compatibilidade...</p>
     </div>
 
-    <!-- Tela 4: Bloqueio / Pagamento de R$ 1,00 -->
+    <!-- Tela 4: Bloqueio / Paywall -->
     <div id="screen-paywall" class="hidden">
       <div style="text-align: center;">
-        <span class="badge-lock">🔒 RELATÓRIO GERADO</span>
+        <span class="badge-lock">🔒 RELATÓRIO INDIVIDUALIZADO PRONTO</span>
       </div>
-      <h2>Seu relatório está pronto!</h2>
-      <p>Calculamos o desvio exato entre a sua idade biológica e mental.</p>
+      <h2>Seu Perfil Afetivo Foi Decodificado!</h2>
+      <p>Identificamos sua linguagem predominante e a dinâmica oculta ideal do seu parceiro.</p>
       
       <div class="blur-content">
-        <h1 style="font-size: 2.2rem; margin: 8px 0;">Idade Mental: 34 anos</h1>
-        <p>Traço Dominante: Preservação de Energia e Praticidade</p>
+        <h1 style="font-size: 1.8rem; margin: 8px 0; color: var(--highlight);">Linguagem: Tempo de Qualidade (88%)</h1>
+        <p>Compatibilidade Oculta: Alto Alinhamento com Atos de Serviço e Escuta Ativa</p>
       </div>
 
       <div class="checklist">
-        <div>✔ Idade mental exata e cálculo de desvio percentual</div>
-        <div>✔ Nível de maturidade cognitiva vs. emocional</div>
-        <div>✔ Cartão de partilha oficial para WhatsApp e Instagram</div>
+        <div>✔ Diagnóstico completo da sua linguagem primária e secundária</div>
+        <div>✔ Lista dos gatilhos que sabotam suas conexões sem você perceber</div>
+        <div>✔ Tipo exato de personalidade que traz estabilidade para a sua vida</div>
+        <div>✔ Cartão oficial para compartilhar no WhatsApp</div>
       </div>
 
       <div class="price-box">
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Acesso completo imediato por apenas:</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Acesso imediato ao relatório detalhado por apenas:</div>
         <div class="price-tag">R$ 1,00</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pagamento único via Mercado Pago / Pix</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pagamento único e seguro via Mercado Pago / Pix</div>
       </div>
 
-      <!-- Botão com o link direto e chamada de fallback -->
       <a href="https://mpago.la/1e2aD4C" target="_blank" class="btn btn-pix" onclick="simularAprovacaoDePagamento()">
-        ⚡ Liberar Meu Resultado por R$ 1,00
+        ⚡ Liberar Meu Relatório por R$ 1,00
       </a>
-      <p style="font-size: 0.75rem; margin-top: 8px;">Acesso liberado imediatamente após o pagamento.</p>
+      <p style="font-size: 0.75rem; margin-top: 8px;">Acesso instantâneo após a confirmação.</p>
     </div>
 
-    <!-- Tela 5: Resultado Desbloqueado (Caso o usuário retorne ou queira ver) -->
+    <!-- Tela 5: Resultado -->
     <div id="screen-result" class="hidden">
       <div style="text-align: center; margin-bottom: 12px;">
-        <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">RELATÓRIO DESBLOQUEADO</span>
+        <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">ANÁLISE DESBLOQUEADA</span>
       </div>
-      <h1 id="resultTitle">Idade Mental</h1>
+      <h1 id="resultTitle">Seu Perfil</h1>
       <p id="resultDesc" style="margin-top: 10px;"></p>
+      <div id="compatibilityBox" style="background: rgba(255,255,255,0.05); border-left: 3px solid var(--highlight); padding: 12px; margin-top: 16px; border-radius: 4px; text-align: left; font-size: 0.9rem;"></div>
 
       <button class="btn" style="background: #25d366; color: #fff; margin-top: 24px;" onclick="compartilharWhatsApp()">
-        Desafie Amigos no WhatsApp
+        Compartilhar no WhatsApp
       </button>
     </div>
 
   </div>
 
   <script>
+    // 30 Questões categorizadas nas 5 Linguagens:
+    // A: Palavras de Afirmação | B: Tempo de Qualidade | C: Presentes | D: Atos de Serviço | E: Toque Físico
     const perguntas = [
       {
-        text: "1. Numa sexta-feira às 20h, o plano ideal para recarregar é:",
+        text: "1. O que mais aquece seu coração após um dia cansativo de trabalho?",
         opcoes: [
-          { text: "Sair para um bar movimentado ou festa com muitas pessoas", pontuacao: 1 },
-          { text: "Jantar num restaurante calmo ou ver filme com poucas pessoas", pontuacao: 2 },
-          { text: "Banho tomado, roupa confortável, comida boa e cama cedo", pontuacao: 3 }
+          { text: "Ouvir: 'Tenho muito orgulho de você, você é incrível'", tipo: "A" },
+          { text: "Sentar juntos no sofá sem celulares e conversar sobre tudo", tipo: "B" },
+          { text: "Receber um lanche surpresa que a pessoa lembrou de trazer", tipo: "C" },
+          { text: "Encontrar a louça lavada ou o jantar adiantado", tipo: "D" },
+          { text: "Um abraço longo e silencioso antes de qualquer palavra", tipo: "E" }
         ]
       },
       {
-        text: "2. Quando recebe uma mensagem de áudio de 3 minutos no WhatsApp:",
+        text: "2. Qual atitude do parceiro mais machuca você?",
         opcoes: [
-          { text: "Ouve tranquilamente na velocidade normal", pontuacao: 1 },
-          { text: "Acelera para 1,5x ou 2x para terminar rápido", pontuacao: 2 },
-          { text: "Ignora mentalmente até ter muita paciência para escutar", pontuacao: 3 }
+          { text: "Comentários sarcásticos ou críticas duras", tipo: "A" },
+          { text: "A pessoa estar presente fisicamente, mas distraída no celular", tipo: "B" },
+          { text: "Esquecer datas simbólicas ou não valorizar uma lembrança", tipo: "C" },
+          { text: "Prometer ajudar com tarefas e não cumprir", tipo: "D" },
+          { text: "Frieza corporal e esquiva ao tentar dar carinho", tipo: "E" }
         ]
       },
       {
-        text: "3. O seu nível de paciência para discussões em redes sociais:",
+        text: "3. Para você, uma prova real de amor no dia a dia é:",
         opcoes: [
-          { text: "Gosto de debater e argumentar para defender meu ponto", pontuacao: 1 },
-          { text: "Ouço/leio por curiosidade, mas raramente me envolvo", pontuacao: 2 },
-          { text: "Evito ativamente; considero perda total de tempo e paz", pontuacao: 3 }
+          { text: "Mensagens inesperadas no meio do dia elogiando você", tipo: "A" },
+          { text: "Reservar um tempo exclusivo de agenda só para vocês dois", tipo: "B" },
+          { text: "Receber uma lembrança que mostra que a pessoa pensou em você", tipo: "C" },
+          { text: "Alguém resolver um problema prático seu sem que precise pedir", tipo: "D" },
+          { text: "Segurar a sua mão em público espontaneamente", tipo: "E" }
         ]
       },
       {
-        text: "4. Ao pensar numa compra supérflua de valor considerável:",
+        text: "4. Ao viajar em casal, o que é indispensável?",
         opcoes: [
-          { text: "Um acessório novo de tendência, roupas ou eletrônico da moda", pontuacao: 1 },
-          { text: "Um eletrodoméstico que economize meu tempo ou traga conforto", pontuacao: 2 },
-          { text: "Uma cama de alto padrão, silêncio acústico ou paz no lar", pontuacao: 3 }
+          { text: "Conversas profundas e trocas sinceras de elogios", tipo: "A" },
+          { text: "Passeios a dois sem distrações externas ou grupos grandes", tipo: "B" },
+          { text: "Comprar souvenirs e lembranças de recordação da viagem", tipo: "C" },
+          { text: "Parceria ativa dividindo a logística, malas e rotas", tipo: "D" },
+          { text: "Ficar colados, intimidade física e carinhos frequentes", tipo: "E" }
         ]
       },
       {
-        text: "5. Em filas demoradas ou atrasos imprevistos fora do seu controle:",
+        text: "5. Quando você conquista um objetivo pessoal importante, prefere:",
         opcoes: [
-          { text: "Fico impaciente, reclamo ou busco alternativas rápidas", pontuacao: 1 },
-          { text: "Aproveito para responder mensagens pendentes ou ler", pontuacao: 2 },
-          { text: "Aceito calmamente; o que não tem remédio, remediado está", pontuacao: 3 }
+          { text: "Uma declaração dizendo o quanto você batalhou por aquilo", tipo: "A" },
+          { text: "Uma noite inteira dedicada a comemorar a sós com você", tipo: "B" },
+          { text: "Um presente simbólico para marcar para sempre a conquista", tipo: "C" },
+          { text: "Apoio nas tarefas diárias para você poder focar na vitória", tipo: "D" },
+          { text: "Comemoração física com festa, abraço apertado e beijos", tipo: "E" }
+        ]
+      },
+      {
+        text: "6. Em momentos de indecisão, o que mais te acalma?",
+        opcoes: [
+          { text: "Frases de incentivo: 'Eu confio plenamente na sua capacidade'", tipo: "A" },
+          { text: "Alguém que pare tudo para te escutar com calma", tipo: "B" },
+          { text: "Receber um mimo reconfortante (como seu doce favorito)", tipo: "C" },
+          { text: "A pessoa arregaçar as mangas e te ajudar a organizar a solução", tipo: "D" },
+          { text: "Um cafuné enquanto você respira fundo para pensar", tipo: "E" }
+        ]
+      },
+      {
+        text: "7. Como você costuma demonstrar afeto espontaneamente?",
+        opcoes: [
+          { text: "Elogiando e reforçando as qualidades da pessoa", tipo: "A" },
+          { text: "Criando oportunidades para passarem tempo juntos", tipo: "B" },
+          { text: "Comprando mimos ou coisas úteis que a pessoa precisa", tipo: "C" },
+          { text: "Cuidando de coisas chatas do dia a dia para poupá-la", tipo: "D" },
+          { text: "Tocando, fazendo massagem ou ficando de mãos dadas", tipo: "E" }
+        ]
+      },
+      {
+        text: "8. Em um relacionamento à distância, o maior desafio seria:",
+        opcoes: [
+          { text: "Falta de conversas expressando o carinho com clareza", tipo: "A" },
+          { text: "Não conseguir ter encontros e atividades rotineiras juntos", tipo: "B" },
+          { text: "Não conseguir trocar mimos ou presentes presencialmente", tipo: "C" },
+          { text: "A incapacidade de um ajudar o outro no cotidiano prático", tipo: "D" },
+          { text: "A ausência total de contato físico e do abraço", tipo: "E" }
+        ]
+      },
+      {
+        text: "9. O que te faz sentir mais seguro(a) em uma crise no casal?",
+        opcoes: [
+          { text: "O parceiro reafirmar verbalmente que ama e valoriza você", tipo: "A" },
+          { text: "Sentarem com calma para dialogar sem pressa", tipo: "B" },
+          { text: "Um gesto simbólico ou carta demonstrando compromisso", tipo: "C" },
+          { text: "Atitudes concretas de mudança e comprometimento", tipo: "D" },
+          { text: "Um beijo de reconciliação e o aconchego físico", tipo: "E" }
+        ]
+      },
+      {
+        text: "10. Num aniversário, o que tem maior peso emocional?",
+        opcoes: [
+          { text: "Um discurso ou mensagem detalhada sobre sua importância", tipo: "A" },
+          { text: "A companhia exclusiva e total atenção da pessoa", tipo: "B" },
+          { text: "Um presente personalizado que exigiu pesquisa e dedicação", tipo: "C" },
+          { text: "A pessoa organizar tudo para você não se cansar com nada", tipo: "D" },
+          { text: "Carinho intenso durante o dia inteiro", tipo: "E" }
+        ]
+      },
+      {
+        text: "11. O que mais te atrai no início de um romance?",
+        opcoes: [
+          { text: "Conversas inteligentes e trocas de elogios honestos", tipo: "A" },
+          { text: "A pessoa se importar em criar momentos memoráveis a sós", tipo: "B" },
+          { text: "Atenção a detalhes, como lembrar do que você gosta de comer", tipo: "C" },
+          { text: "Proatividade em te apoiar e oferecer carona ou ajuda", tipo: "D" },
+          { text: "A química magnética do toque e do olhar próximo", tipo: "E" }
+        ]
+      },
+      {
+        text: "12. Ao chegar em casa após um dia difícil, qual frase soa melhor?",
+        opcoes: [
+          { text: "'Você é forte e deu o seu melhor hoje'", tipo: "A" },
+          { text: "'Me conta tudo, estou aqui apenas para te escutar'", tipo: "B" },
+          { text: "'Trouxe isso aqui para te alegrar um pouco'", tipo: "C" },
+          { text: "'Deixa tudo comigo hoje, relaxe e tome seu banho'", tipo: "D" },
+          { text: "'Vem cá e me dá um abraço apertado'", tipo: "E" }
+        ]
+      },
+      {
+        text: "13. Qual sensação define um relacionamento saudável para você?",
+        opcoes: [
+          { text: "Sentir-se valorizado verbalmente e reconhecido", tipo: "A" },
+          { text: "Sentir-se conectado por afinidades e presença de verdade", tipo: "B" },
+          { text: "Sentir-se lembrado mesmo nas menores sutilezas", tipo: "C" },
+          { text: "Sentir-se amparado por uma verdadeira parceria de vida", tipo: "D" },
+          { text: "Sentir-se desejado e próximo corporalmente", tipo: "E" }
+        ]
+      },
+      {
+        text: "14. Em momentos de lazer, qual o programa ideal de domingo?",
+        opcoes: [
+          { text: "Bater papo e fazer planos para o futuro do casal", tipo: "A" },
+          { text: "Fazer uma caminhada ou atividade ao ar livre juntos", tipo: "B" },
+          { text: "Cozinhar com ingredientes especiais que você comprou de mimo", tipo: "C" },
+          { text: "Organizar a semana juntos para começar em paz", tipo: "D" },
+          { text: "Assistir a uma série juntinhos embaixo das cobertas", tipo: "E" }
+        ]
+      },
+      {
+        text: "15. Se o parceiro precisa demonstrar arrependimento, o que convence você?",
+        opcoes: [
+          { text: "Um pedido sincero de desculpas explicando o que entendeu", tipo: "A" },
+          { text: "Dedicar tempo para ouvir você e entender suas dores", tipo: "B" },
+          { text: "Um gesto ou lembrança especial demonstrando que se importa", tipo: "C" },
+          { text: "Mudança prática de comportamento no dia a dia", tipo: "D" },
+          { text: "Aproximação física carinhosa pedindo para ficar perto", tipo: "E" }
+        ]
+      },
+      {
+        text: "16. O que você repara primeiro na atitude de alguém?",
+        opcoes: [
+          { text: "A escolha das palavras e o tom de voz", tipo: "A" },
+          { text: "O nível de foco e presença visual durante a conversa", tipo: "B" },
+          { text: "O cuidado com detalhes e lembranças materiais", tipo: "C" },
+          { text: "Se ela é uma pessoa prestativa com quem está ao redor", tipo: "D" },
+          { text: "O calor e a naturalidade no contato corporal", tipo: "E" }
+        ]
+      },
+      {
+        text: "17. O que te faz sentir que um relacionamento caiu na rotina?",
+        opcoes: [
+          { text: "Não haver mais trocas de elogios e palavras gentis", tipo: "A" },
+          { text: "Viverem juntos como colegas de quarto sem tempo de qualidade", tipo: "B" },
+          { text: "O fim das surpresas e das pequenas lembranças", tipo: "C" },
+          { text: "Cada um cuidar da sua própria vida sem cooperação", tipo: "D" },
+          { text: "A intimidade e o carinho físico diminuírem drasticamente", tipo: "E" }
+        ]
+      },
+      {
+        text: "18. Se você pudesse pedir um favor agora ao seu parceiro(a), seria:",
+        opcoes: [
+          { text: "Me diga três qualidades que você mais admira em mim", tipo: "A" },
+          { text: "Larga tudo e vamos dar uma volta só nós dois", tipo: "B" },
+          { text: "Me surpreenda com algo simples hoje", tipo: "C" },
+          { text: "Resolva uma pendência cansativa que está tirando meu sono", tipo: "D" },
+          { text: "Me faça uma massagem nos pés ou nas costas", tipo: "E" }
+        ]
+      },
+      {
+        text: "19. Qual atitude te causa irritação imediata?",
+        opcoes: [
+          { text: "Ingratidão diante do que você expressa com carinho", tipo: "A" },
+          { text: "Estar conversando com alguém que não desgruda os olhos da tela", tipo: "B" },
+          { text: "Descaso com um presente ou cartão que você preparou", tipo: "C" },
+          { text: "Preguiça ou desleixo com compromissos combinados", tipo: "D" },
+          { text: "Repulsa ou distanciamento quando você busca afeto", tipo: "E" }
+        ]
+      },
+      {
+        text: "20. O que significa 'cuidar' de alguém na sua perspectiva?",
+        opcoes: [
+          { text: "Enaltecer os talentos da pessoa e ser seu maior fã", tipo: "A" },
+          { text: "Fazer-se presente e disponível nas horas decisivas", tipo: "B" },
+          { text: "Prover mimos e símbolos que tragam bem-estar", tipo: "C" },
+          { text: "Tirar obstáculos práticos da frente para facilitar a vida dela", tipo: "D" },
+          { text: "Proteger com o abraço e manter contato físico acolhedor", tipo: "E" }
+        ]
+      },
+      {
+        text: "21. Quando você viaja a trabalho ou estudo, o que mais valoriza?",
+        opcoes: [
+          { text: "Chamadas de voz para ouvir que estão sentindo sua falta", tipo: "A" },
+          { text: "Chamadas de vídeo longas compartilhando a rotina do dia", tipo: "B" },
+          { text: "Trazer e receber lembrancinhas de cada lugar", tipo: "C" },
+          { text: "Saber que o parceiro cuidou da casa na sua ausência", tipo: "D" },
+          { text: "O reencontro físico caloroso na chegada", tipo: "E" }
+        ]
+      },
+      {
+        text: "22. Qual lembrança de infância você guarda com mais ternura?",
+        opcoes: [
+          { text: "Palavras doces de aprovação dos pais ou avós", tipo: "A" },
+          { text: "Momentos em que brincavam com você sem pressa", tipo: "B" },
+          { text: "Um brinquedo ou objeto que você ganhou de alguém especial", tipo: "C" },
+          { text: "O cuidado diário com sua alimentação e rotina", tipo: "D" },
+          { text: "O colo seguro e o cafuné para dormir", tipo: "E" }
+        ]
+      },
+      {
+        text: "23. Se seu parceiro(a) tiver pouco dinheiro, como ele(a) pode te encantar?",
+        opcoes: [
+          { text: "Escrevendo um bilhete sincero à mão", tipo: "A" },
+          { text: "Passando uma tarde inteira conversando em um parque", tipo: "B" },
+          { text: "Te presenteando com algo artesanal feito por ele(a)", tipo: "C" },
+          { text: "Limpando e perfumando o ambiente para vocês descansarem", tipo: "D" },
+          { text: "Dedicando tempo a um cafuné demorado", tipo: "E" }
+        ]
+      },
+      {
+        text: "24. O que mais te faz se sentir invisível em uma relação?",
+        opcoes: [
+          { text: "Falta de elogios ou ausência de 'eu te amo'", tipo: "A" },
+          { text: "Falta de interesse real pelas suas opiniões e sentimentos", tipo: "B" },
+          { text: "Nunca ser lembrado com um detalhe em ocasiões especiais", tipo: "C" },
+          { text: "Ter que arcar com todas as responsabilidades práticas sozinho", tipo: "D" },
+          { text: "Dormir e acordar sem toques de carinho", tipo: "E" }
+        ]
+      },
+      {
+        text: "25. Qual detalhe no comportamento do outro te deixa encantado(a)?",
+        opcoes: [
+          { text: "Estar atento a falar palavras gentis mesmo em momentos tensos", tipo: "A" },
+          { text: "Desligar notificações quando senta para conversar com você", tipo: "B" },
+          { text: "Notar quando você precisa de algo novo e te presentear com aquilo", tipo: "C" },
+          { text: "Perceber que você está ocupado e adiantar uma tarefa sua", tipo: "D" },
+          { text: "Encostar suavemente nas suas costas ao passar por você", tipo: "E" }
+        ]
+      },
+      {
+        text: "26. Em um relacionamento duradouro, qual o pilar fundamental?",
+        opcoes: [
+          { text: "Comunicação respeitosa e mútua valorização verbal", tipo: "A" },
+          { text: "Cumplicidade e rituais diários a dois", tipo: "B" },
+          { text: "Generosidade e memória afetiva construída por lembranças", tipo: "C" },
+          { text: "Trabalho em equipe e apoio mútuo nas obrigações", tipo: "D" },
+          { text: "Intimidade corporal constante e carinho recíproco", tipo: "E" }
+        ]
+      },
+      {
+        text: "27. Se você ganhasse um dia livre sem obrigações, o que gostaria de fazer?",
+        opcoes: [
+          { text: "Conversar sobre sonhos e reflexões com quem ama", tipo: "A" },
+          { text: "Fazer uma atividade divertida e exclusiva com o parceiro", tipo: "B" },
+          { text: "Ir a um lugar especial e escolher algo marcante para si", tipo: "C" },
+          { text: "Organizar pendências para respirar aliviado a semana toda", tipo: "D" },
+          { text: "Ficar de preguiça o dia todo agarrado no sofá", tipo: "E" }
+        ]
+      },
+      {
+        text: "28. Qual elogio soa mais poderoso para você?",
+        opcoes: [
+          { text: "'A sua voz e o seu apoio mudam completamente o meu dia'", tipo: "A" },
+          { text: "'O tempo passa voando quando estou perto de você'", tipo: "B" },
+          { text: "'Você sempre escolhe os melhores detalhes para todo mundo'", tipo: "C" },
+          { text: "'Você é o meu porto seguro, posso sempre contar com você'", tipo: "D" },
+          { text: "'O seu toque e o seu abraço são o meu lugar favorito no mundo'", tipo: "E" }
+        ]
+      },
+      {
+        text: "29. O que mais te incomoda quando alguém tenta te agradar?",
+        opcoes: [
+          { text: "Elogios falsos ou comentários genéricos sem profundidade", tipo: "A" },
+          { text: "A pessoa estar com pressa para acabar o momento", tipo: "B" },
+          { text: "Receber algo genérico que mostra que a pessoa nem te conhece", tipo: "C" },
+          { text: "Fazer favores malfeitos que geram mais retrabalho para você", tipo: "D" },
+          { text: "Toques forçados ou sem sintonia com o seu estado de espírito", tipo: "E" }
+        ]
+      },
+      {
+        text: "30. Para você, amar de verdade significa:",
+        opcoes: [
+          { text: "Edificar a pessoa com palavras, confiança e verdade", tipo: "A" },
+          { text: "Estar presente de corpo e alma nos momentos compartilhados", tipo: "B" },
+          { text: "Materializar consideração e afeto em gestos visíveis", tipo: "C" },
+          { text: "Demonstrar através de suporte prático, aliviando os pesos da vida", tipo: "D" },
+          { text: "Conectar corpos e almas pela ternura do afeto físico constante", tipo: "E" }
         ]
       }
     ];
 
     let currentQuestion = 0;
-    let totalScore = 0;
+    const scores = { A: 0, B: 0, C: 0, D: 0, E: 0 };
 
     function showScreen(id) {
       ['screen-welcome', 'screen-quiz', 'screen-loading', 'screen-paywall', 'screen-result'].forEach(screenId => {
@@ -309,13 +590,14 @@
 
     function startQuiz() {
       currentQuestion = 0;
-      totalScore = 0;
+      Object.keys(scores).forEach(k => scores[k] = 0);
       showScreen('screen-quiz');
       renderQuestion();
     }
 
     function renderQuestion() {
       const q = perguntas[currentQuestion];
+      document.getElementById('questionCounter').innerText = `Pergunta ${currentQuestion + 1} de ${perguntas.length}`;
       document.getElementById('questionText').innerText = q.text;
 
       const progresso = ((currentQuestion) / perguntas.length) * 100;
@@ -328,13 +610,13 @@
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = opt.text;
-        btn.onclick = () => selectOption(opt.pontuacao);
+        btn.onclick = () => selectOption(opt.tipo);
         container.appendChild(btn);
       });
     }
 
-    function selectOption(pontuacao) {
-      totalScore += pontuacao;
+    function selectOption(tipo) {
+      if (scores[tipo] !== undefined) scores[tipo]++;
       currentQuestion++;
 
       if (currentQuestion < perguntas.length) {
@@ -351,49 +633,80 @@
       const status = document.getElementById('loadingStatus');
 
       const intervalo = setInterval(() => {
-        progresso += 10;
+        progresso += 5;
         bar.style.width = `${progresso}%`;
 
-        if (progresso === 40) status.innerText = "A cruzar respostas com padrões comportamentais...";
-        if (progresso === 80) status.innerText = "A tabular maturidade executiva e neural...";
+        if (progresso === 30) status.innerText = "Calculando proporção entre as 5 linguagens emocionais...";
+        if (progresso === 65) status.innerText = "Analisando padrões ocultos de atração e sustentabilidade afetiva...";
+        if (progresso === 90) status.innerText = "Gerando matriz de compatibilidade e riscos relacionais...";
 
         if (progresso >= 100) {
           clearInterval(intervalo);
           setTimeout(() => {
+            prepareResult();
             showScreen('screen-paywall');
-          }, 400);
+          }, 350);
         }
-      }, 200);
+      }, 100);
     }
 
-    // Redirecionamento para o seu link do Mercado Pago
     function simularAprovacaoDePagamento() {
+      // Abre o checkout do Mercado Pago
       window.open("https://mpago.la/1e2aD4C", "_blank");
     }
 
-    let idadeCalculada = 0;
+    let perfilFinal = "";
+    let compatibilidadeFinal = "";
 
     function prepareResult() {
+      // Identifica linguagem dominante
+      let maior = "A";
+      for (const k in scores) {
+        if (scores[k] > scores[maior]) maior = k;
+      }
+
       const title = document.getElementById('resultTitle');
       const desc = document.getElementById('resultDesc');
+      const compBox = document.getElementById('compatibilityBox');
 
-      if (totalScore <= 7) {
-        idadeCalculada = 19;
-        title.innerText = "Idade Mental: 19 anos";
-        desc.innerText = "Perfil Dinâmico e Espontâneo. Mantém uma elevada curiosidade pelo ambiente, energia constante e foco nas novidades. Dificilmente se deixa consumir pelo desânimo da rotina.";
-      } else if (totalScore <= 11) {
-        idadeCalculada = 34;
-        title.innerText = "Idade Mental: 34 anos";
-        desc.innerText = "Perfil Pragmático e Equilibrado. Sabe filtrar onde coloca a sua atenção. Valoriza o tempo de descanso, tem metas práticas e não se desgasta com assuntos fora do seu controle.";
-      } else {
-        idadeCalculada = 56;
-        title.innerText = "Idade Mental: 56 anos";
-        desc.innerText = "Perfil Guardião da Paz. Tolerância zero para dramas ou ruídos desnecessários. A sua energia social é seletiva e o seu maior patrimônio é o silêncio, a estabilidade e o conforto.";
-      }
+      const perfis = {
+        A: {
+          nome: "Palavras de Afirmação",
+          desc: "Sua principal forma de conexão emocional se dá através da validação, do encorajamento e da clareza verbal. O silêncio prolongado ou críticas desmedidas afetam diretamente sua segurança no vínculo.",
+          compatibilidade: "<strong>Compatibilidade Oculta Ideal:</strong> Parceiros focados em <em>Tempo de Qualidade</em> e <em>Atos de Serviço</em>, que oferecem escuta atenta para seus diálogos e demonstram solidez nas ações cotidianas."
+        },
+        B: {
+          nome: "Tempo de Qualidade",
+          desc: "Você valoriza a presença real, a atenção sem distrações e a cumplicidade nas experiências diárias. Estar no mesmo ambiente sem conexão genuína causa desgaste na sua energia relacional.",
+          compatibilidade: "<strong>Compatibilidade Oculta Ideal:</strong> Parceiros de <em>Toque Físico</em> e <em>Palavras de Afirmação</em>, que trazem proximidade e criam momentos a sós carregados de afeto e diálogo sincero."
+        },
+        C: {
+          nome: "Presentes e Lembranças",
+          desc: "Para você, o presente não é sobre valor material, mas sobre o símbolo da consideração: a prova tangível de que a pessoa se lembrou de você e dedicou atenção ao que você valoriza.",
+          compatibilidade: "<strong>Compatibilidade Oculta Ideal:</strong> Parceiros de <em>Atos de Serviço</em> e <em>Tempo de Qualidade</em>, que reparam nos detalhes do seu cotidiano e constroem memórias duradouras lado a lado."
+        },
+        D: {
+          nome: "Atos de Serviço",
+          desc: "Seu cérebro traduz amor em atitudes práticas, cooperação e alívio do fardo diário. Para você, promessas vazias não têm valor quando desacompanhadas de comprometimento prático.",
+          compatibilidade: "<strong>Compatibilidade Oculta Ideal:</strong> Parceiros de <em>Palavras de Afirmação</em> e <em>Tempo de Qualidade</em>, que reconhecem seus esforços com gratidão e compartilham a rotina com respeito mútuo."
+        },
+        E: {
+          nome: "Toque Físico",
+          desc: "O contato corporal, o abraço e o aconchego são a sua âncora emocional primordial. O toque comunica aceitação e proteção muito mais rápido do que qualquer explicação racional.",
+          compatibilidade: "<strong>Compatibilidade Oculta Ideal:</strong> Parceiros de <em>Tempo de Qualidade</em> e <em>Atos de Serviço</em>, que oferecem estabilidade e presença afetuosa constante sem necessidade de palavras elaboradas."
+        }
+      };
+
+      perfilFinal = perfis[maior].nome;
+      compatibilidadeFinal = perfis[maior].compatibilidade;
+
+      title.innerText = `Sua Linguagem: ${perfilFinal}`;
+      desc.innerText = perfis[maior].desc;
+      compBox.innerHTML = compatibilidadeFinal;
     }
 
     function compartilharWhatsApp() {
-      const text = encodeURIComponent(`Fiz o teste oficial de Idade Mental e o meu resultado deu ${idadeCalculada} anos! Veja quanto dá o seu: ${window.location.href}`);
+      const text = encodeURIComponent(`Fiz o Teste de Linguagem do Amor e Compatibilidade Oculta e meu perfil deu ${perfilFinal}! Faça também o seu pelo link: ${window.location.href}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
   </script>
