@@ -38,8 +38,8 @@
       padding: 28px;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     h1, h2 {
@@ -105,14 +105,14 @@
     }
 
     .option-btn:hover {
-      background-color: rgba(79, 70, 229, 0.2);
+      background-color: rgba(79, 70, 229, 0.15);
       border-color: var(--primary);
     }
 
     .progress-bar-container {
       width: 100%;
       height: 8px;
-      background: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
       margin-bottom: 20px;
       overflow: hidden;
@@ -121,11 +121,10 @@
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: var(--primary);
+      background-color: var(--primary);
       transition: width 0.3s ease;
     }
 
-    /* Tela de Bloqueio */
     .blur-content {
       filter: blur(6px);
       user-select: none;
@@ -172,13 +171,14 @@
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
   </style>
 </head>
 <body>
 
   <div class="container" id="app">
+    
     <!-- Tela 1: Boas-vindas -->
     <div id="screen-welcome">
       <h1>🧠 Teste Oficial de Idade Mental</h1>
@@ -197,98 +197,100 @@
 
     <!-- Tela 3: Carregamento do Resultado -->
     <div id="screen-loading" class="hidden">
-      <h2>A analisar padrões cerebrais...</h2>
-      <div class="progress-bar-container" style="margin-top: 20px;">
-        <div class="progress-bar" id="loadingBar" style="width: 0%;"></div>
+      <h2>A analisar os padrões específicos...</h2>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="loadingBar"></div>
       </div>
-      <p id="loadingStatus" style="margin-top: 12px;">A cruzar respostas com a base de dados...</p>
+      <p id="loadingStatus" style="margin-top: 12px;">Cruzando respostas com banco de dados neurológicos...</p>
     </div>
 
     <!-- Tela 4: Bloqueio / Pagamento de R$ 1,00 -->
     <div id="screen-paywall" class="hidden">
       <div style="text-align: center;">
-        <span class="badge-lock">RELATÓRIO GERADO</span>
+        <span class="badge-lock">🔒 RELATÓRIO GERADO</span>
       </div>
-      <h2>O seu relatório está pronto!</h2>
-      <p>Calculámos o desvio exato entre a sua idade biológica e mental.</p>
-
-      <!-- Conteúdo Propositadamente Borrado -->
+      <h2>Seu relatório está pronto!</h2>
+      <p>Calculamos o desvio exato entre a sua idade biológica e mental.</p>
+      
       <div class="blur-content">
-        <h1 style="font-size: 2.2rem;">Sua idade mental: 47 anos</h1>
-        <p>Traço Dominante: Preservação de Energia e Paciência Seletiva.</p>
+        <h1 style="font-size: 2.2rem; margin: 8px 0;">Idade Mental: 34 anos</h1>
+        <p>Traço Dominante: Preservação de Energia e Praticidade</p>
       </div>
 
       <div class="checklist">
-        <div>✔ Idade mental exata e faixa comportamental</div>
-        <div>✔ Nível de maturidade e gestão de stress</div>
-        <div>✔ Cartão de partilha pronto para WhatsApp / Instagram</div>
+        <div>✔ Idade mental exata e cálculo de desvio percentual</div>
+        <div>✔ Nível de maturidade cognitiva vs. emocional</div>
+        <div>✔ Cartão de partilha oficial para WhatsApp e Instagram</div>
       </div>
 
       <div class="price-box">
-        <div style="font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through;">De R$ 9,90</div>
-        <div class="price-tag">Por apenas R$ 1,00</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Libertação imediata via Pix</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Acesso completo imediato por apenas:</div>
+        <div class="price-tag">R$ 1,00</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pagamento único via Mercado Pago / Pix</div>
       </div>
 
-      <!-- Substitua pelo link de checkout de R$ 1 da sua plataforma (ex: Pushin Pay, Asaas, Mercado Pago) -->
-      <button class="btn btn-pix" onclick="simulatePaymentApproval()">Pagar R$ 1,00 via Pix</button>
-      <p style="font-size: 0.75rem; margin-top: 10px;">Ambiente seguro. Acesso instantâneo.</p>
+      <!-- Botão com o link direto e chamada de fallback -->
+      <a href="https://mpago.la/1e2aD4C" target="_blank" class="btn btn-pix" onclick="simularAprovacaoDePagamento()">
+        ⚡ Liberar Meu Resultado por R$ 1,00
+      </a>
+      <p style="font-size: 0.75rem; margin-top: 8px;">Acesso liberado imediatamente após o pagamento.</p>
     </div>
 
-    <!-- Tela 5: Resultado Desbloqueado -->
+    <!-- Tela 5: Resultado Desbloqueado (Caso o usuário retorne ou queira ver) -->
     <div id="screen-result" class="hidden">
       <div style="text-align: center; margin-bottom: 12px;">
-        <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">ACESSO LIBERADO</span>
+        <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">RELATÓRIO DESBLOQUEADO</span>
       </div>
-      <h1 id="resultTitle" style="font-size: 2rem; color: var(--accent);">Idade Mental: 42 anos</h1>
-      <p id="resultDesc" style="margin-top: 10px; font-size: 1rem; color: var(--text);"></p>
+      <h1 id="resultTitle">Idade Mental</h1>
+      <p id="resultDesc" style="margin-top: 10px;"></p>
 
-      <button class="btn" style="background-color: #25d366; margin-top: 24px;" onclick="shareWhatsApp()">
-        Desafiar Amigos no WhatsApp
+      <button class="btn" style="background: #25d366; color: #fff; margin-top: 24px;" onclick="compartilharWhatsApp()">
+        Desafie Amigos no WhatsApp
       </button>
     </div>
+
   </div>
 
   <script>
-    const questions = [
+    const perguntas = [
       {
-        text: "1. Numa sexta-feira às 20h, o que parece mais tentador?",
-        options: [
-          { text: "Sair para um bar movimentado ou festa", score: 1 },
-          { text: "Jantar num restaurante calmo com poucas pessoas", score: 2 },
-          { text: "Banho tomado, roupa confortável e zero planos", score: 3 }
+        text: "1. Numa sexta-feira às 20h, o plano ideal para recarregar é:",
+        opcoes: [
+          { text: "Sair para um bar movimentado ou festa com muitas pessoas", pontuacao: 1 },
+          { text: "Jantar num restaurante calmo ou ver filme com poucas pessoas", pontuacao: 2 },
+          { text: "Banho tomado, roupa confortável, comida boa e cama cedo", pontuacao: 3 }
         ]
       },
       {
-        text: "2. Quando recebe uma mensagem de áudio com mais de 2 minutos:",
-        options: [
-          { text: "Ouve tranquilamente na velocidade normal", score: 1 },
-          { text: "Acelera logo para 1.5x ou 2.0x", score: 2 },
-          { text: "Ignora mentalmente até ter paciência para responder", score: 3 }
+        text: "2. Quando recebe uma mensagem de áudio de 3 minutos no WhatsApp:",
+        opcoes: [
+          { text: "Ouve tranquilamente na velocidade normal", pontuacao: 1 },
+          { text: "Acelera para 1,5x ou 2x para terminar rápido", pontuacao: 2 },
+          { text: "Ignora mentalmente até ter muita paciência para escutar", pontuacao: 3 }
         ]
       },
       {
-        text: "3. O seu nível de paciência para conversas fúteis ou boatos:",
-        options: [
-          { text: "Gosto de saber e acompanho tudo", score: 1 },
-          { text: "Ouço por educação, mas desligo a atenção", score: 2 },
-          { text: "Evito ativamente; considero perda de tempo absoluto", score: 3 }
+        text: "3. O seu nível de paciência para discussões em redes sociais:",
+        opcoes: [
+          { text: "Gosto de debater e argumentar para defender meu ponto", pontuacao: 1 },
+          { text: "Ouço/leio por curiosidade, mas raramente me envolvo", pontuacao: 2 },
+          { text: "Evito ativamente; considero perda total de tempo e paz", pontuacao: 3 }
         ]
       },
       {
-        text: "4. Ao pensar numa compra satisfatória para a casa:",
-        options: [
-          { text: "Um acessório novo de tecnologia ou decoração estética", score: 1 },
-          { text: "Um eletrodoméstico que economize tempo (ex: Airfryer)", score: 2 },
-          { text: "Uma cama excelente, almofada ortopédica ou organizadores", score: 3 }
+        text: "4. Ao pensar numa compra supérflua de valor considerável:",
+        opcoes: [
+          { text: "Um acessório novo de tendência, roupas ou eletrônico da moda", pontuacao: 1 },
+          { text: "Um eletrodoméstico que economize meu tempo ou traga conforto", pontuacao: 2 },
+          { text: "Uma cama de alto padrão, silêncio acústico ou paz no lar", pontuacao: 3 }
         ]
       },
       {
-        text: "5. Situações com filas demoradas ou trânsito lento:",
-        options: [
-          { text: "Aproveito para ver vídeos e passar o tempo no telemóvel", score: 1 },
-          { text: "Fico desconfortável, mas controlo a irritação", score: 2 },
-          { text: "Sinto que estou a perder anos preciosos de vida", score: 3 }
+        text: "5. Em filas demoradas ou atrasos imprevistos fora do seu controle:",
+        opcoes: [
+          { text: "Fico impaciente, reclamo ou busco alternativas rápidas", pontuacao: 1 },
+          { text: "Aproveito para responder mensagens pendentes ou ler", pontuacao: 2 },
+          { text: "Aceito calmamente; o que não tem remédio, remediado está", pontuacao: 3 }
         ]
       }
     ];
@@ -297,10 +299,12 @@
     let totalScore = 0;
 
     function showScreen(id) {
-      ['screen-welcome', 'screen-quiz', 'screen-loading', 'screen-paywall', 'screen-result'].forEach(s => {
-        document.getElementById(s).classList.add('hidden');
+      ['screen-welcome', 'screen-quiz', 'screen-loading', 'screen-paywall', 'screen-result'].forEach(screenId => {
+        const el = document.getElementById(screenId);
+        if (el) el.classList.add('hidden');
       });
-      document.getElementById(id).classList.remove('hidden');
+      const target = document.getElementById(id);
+      if (target) target.classList.remove('hidden');
     }
 
     function startQuiz() {
@@ -311,50 +315,50 @@
     }
 
     function renderQuestion() {
-      const q = questions[currentQuestion];
+      const q = perguntas[currentQuestion];
       document.getElementById('questionText').innerText = q.text;
-      
-      const progress = ((currentQuestion) / questions.length) * 100;
-      document.getElementById('progressBar').style.width = `${progress}%`;
+
+      const progresso = ((currentQuestion) / perguntas.length) * 100;
+      document.getElementById('progressBar').style.width = progresso + '%';
 
       const container = document.getElementById('optionsGrid');
       container.innerHTML = '';
 
-      q.options.forEach(opt => {
+      q.opcoes.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = opt.text;
-        btn.onclick = () => selectOption(opt.score);
+        btn.onclick = () => selectOption(opt.pontuacao);
         container.appendChild(btn);
       });
     }
 
-    function selectOption(score) {
-      totalScore += score;
+    function selectOption(pontuacao) {
+      totalScore += pontuacao;
       currentQuestion++;
 
-      if (currentQuestion < questions.length) {
+      if (currentQuestion < perguntas.length) {
         renderQuestion();
       } else {
-        startLoadingSequence();
+        iniciarSequenciaDeCarregamento();
       }
     }
 
-    function startLoadingSequence() {
+    function iniciarSequenciaDeCarregamento() {
       showScreen('screen-loading');
-      let progress = 0;
+      let progresso = 0;
       const bar = document.getElementById('loadingBar');
       const status = document.getElementById('loadingStatus');
 
-      const interval = setInterval(() => {
-        progress += 10;
-        bar.style.width = `${progress}%`;
+      const intervalo = setInterval(() => {
+        progresso += 10;
+        bar.style.width = `${progresso}%`;
 
-        if (progress === 40) status.innerText = "A cruzar respostas com padrões de maturidade...";
-        if (progress === 80) status.innerText = "A compilar traços de temperamento e foco...";
-        
-        if (progress >= 100) {
-          clearInterval(interval);
+        if (progresso === 40) status.innerText = "A cruzar respostas com padrões comportamentais...";
+        if (progresso === 80) status.innerText = "A tabular maturidade executiva e neural...";
+
+        if (progresso >= 100) {
+          clearInterval(intervalo);
           setTimeout(() => {
             showScreen('screen-paywall');
           }, 400);
@@ -362,34 +366,34 @@
       }, 200);
     }
 
-    // Função de pagamento com redirecionamento
-  function simularAprovacaoDePagamento() {
-    window.location.href = "https://mpago.la/1e2aD4C";
-  }
+    // Redirecionamento para o seu link do Mercado Pago
+    function simularAprovacaoDePagamento() {
+      window.open("https://mpago.la/1e2aD4C", "_blank");
+    }
 
-    let calculatedAge = 0;
+    let idadeCalculada = 0;
 
     function prepareResult() {
       const title = document.getElementById('resultTitle');
       const desc = document.getElementById('resultDesc');
 
       if (totalScore <= 7) {
-        calculatedAge = 19;
+        idadeCalculada = 19;
         title.innerText = "Idade Mental: 19 anos";
         desc.innerText = "Perfil Dinâmico e Espontâneo. Mantém uma elevada curiosidade pelo ambiente, energia constante e foco nas novidades. Dificilmente se deixa consumir pelo desânimo da rotina.";
       } else if (totalScore <= 11) {
-        calculatedAge = 34;
+        idadeCalculada = 34;
         title.innerText = "Idade Mental: 34 anos";
-        desc.innerText = "Perfil Pragmático e Equilibrado. Sabe filtrar onde coloca a sua atenção. Valoriza o tempo de descanso, tem metas práticas e não se desgasta com assuntos fora do seu controlo.";
+        desc.innerText = "Perfil Pragmático e Equilibrado. Sabe filtrar onde coloca a sua atenção. Valoriza o tempo de descanso, tem metas práticas e não se desgasta com assuntos fora do seu controle.";
       } else {
-        calculatedAge = 56;
+        idadeCalculada = 56;
         title.innerText = "Idade Mental: 56 anos";
-        desc.innerText = "Perfil Guardião da Paz. Tolerância zero para dramas ou ruído desnecessário. A sua energia social é seletiva e o seu maior património é o silêncio, a estabilidade e o conforto.";
+        desc.innerText = "Perfil Guardião da Paz. Tolerância zero para dramas ou ruídos desnecessários. A sua energia social é seletiva e o seu maior patrimônio é o silêncio, a estabilidade e o conforto.";
       }
     }
 
-    function shareWhatsApp() {
-      const text = encodeURIComponent(`Fiz o teste oficial de Idade Mental e o meu resultado deu ${calculatedAge} anos! 😂 Vê quanto dá o teu: ${window.location.href}`);
+    function compartilharWhatsApp() {
+      const text = encodeURIComponent(`Fiz o teste oficial de Idade Mental e o meu resultado deu ${idadeCalculada} anos! Veja quanto dá o seu: ${window.location.href}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
   </script>
