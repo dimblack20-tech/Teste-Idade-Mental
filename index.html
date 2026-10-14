@@ -362,11 +362,10 @@
       }, 200);
     }
 
-    // Função que simula o pagamento instantâneo
-    function simulatePaymentApproval() {
-      prepareResult();
-      showScreen('screen-result');
-    }
+    // Função de pagamento com redirecionamento
+  function simularAprovacaoDePagamento() {
+    window.location.href = "https://mpago.la/1e2aD4C";
+  }
 
     let calculatedAge = 0;
 
